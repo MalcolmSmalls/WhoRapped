@@ -9,8 +9,16 @@ function App() {
       <h1 className='pt-20 font-PermanentMarker text-5xl self-center text-red-700'>
         Who Rapped
       </h1>
-      <Bars />
-      <Rapper />
+      <div className='flex flex-col items-center mx-auto w-1/2 border'>
+        <Bars />
+        <div className='flex gap-5'>
+          <Rapper />
+          <Rapper />
+          <Rapper />
+          <Rapper />
+          <Rapper />
+        </div>
+      </div>
     </div>
   )
 }
