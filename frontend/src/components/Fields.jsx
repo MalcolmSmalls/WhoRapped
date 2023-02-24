@@ -3,6 +3,7 @@ import React from 'react'
 export default function Fields() {
   return (
     <div className='container flex gap-10'>
+      <h2 className='font-bold'>Settings:</h2>
       <div>
         <ul>
           <li>

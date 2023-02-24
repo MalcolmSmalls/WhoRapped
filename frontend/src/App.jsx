@@ -21,7 +21,7 @@ function App() {
             <Rapper />
             <Rapper />
           </div>
-          <div className='flex flex-col gap-5'>
+          <div className=''>
             <Fields />
           </div>
         </div>
