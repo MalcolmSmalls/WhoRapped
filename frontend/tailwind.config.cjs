@@ -6,6 +6,7 @@ module.exports = {
     fontFamily: {
       Poppins: ['Poppins', 'Arial'],
       PermanentMarker: ['Permanent Marker', 'Arial'],
+      TiltWarp: ['Tilt Warp', 'Arial'],
     },
     extend: {},
   },
