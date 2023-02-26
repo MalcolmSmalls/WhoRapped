@@ -12,14 +12,13 @@ export default function Main() {
           Who Rapped
         </h1>
         <div className='flex flex-col items-center mx-auto w-1/2 gap-5'>
-          <Bars />
-          <div className='flex gap-6 pb-10'>
-            <Rapper artist='Jay-Z' photo={jayz} />
+          <Bars artist='Jay-Z' photo={jayz} />
+
+          {/* <Rapper artist='Jay-Z' photo={jayz} />
             <Rapper artist='Nas' photo={nas} />
             <Rapper artist='Kanye West' photo={kanye} />
             <Rapper artist='50 Cent' photo='' />
-            <Rapper artist='Eminem' photo='' />
-          </div>
+            <Rapper artist='Eminem' photo='' /> */}
           <div className=''>
             <Fields />
           </div>
