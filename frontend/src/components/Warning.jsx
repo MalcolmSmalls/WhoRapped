@@ -11,9 +11,10 @@ export default function Warning() {
         <div>
           <h1 className='text-xl font-bold'>Warning</h1>
           <p className='text-slate-500 text-sm '>
-            As the rawest musical genre ever formed, Rap may contain language
-            deemed inappropriate for younger audiences. Only click 'okay' if
-            you're sure, and young ones scatter like a glass jaw, and break it.
+            As the rawest musical genre ever materialized, Rap may contain
+            language deemed inappropriate for younger audiences. Only click
+            'okay' if you're sure, and young ones 'scatter' like a glass jaw,
+            and break it.
           </p>
           <div className='container flex gap-5 justify-center mt-5'>
             <Link

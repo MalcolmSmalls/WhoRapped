@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import data from '../database/data'
 
+import { useSelector } from 'react-redux'
+
 export default function Bars(props) {
-  const question = data[0]
+  const state = useSelector((state) => state)
+  useEffect(() => {
+    console.log(state)
+  })
+
+  const question = data[1]
   function handleSelect() {
     console.log('radio selected')
   }
   return (
     <div>
-      <div className='font-Poppins mb-3'>
-        I never sleep 'cause sleep is the cousin of death.
-      </div>
+      <div className='font-Poppins mb-3 select-none'>{question.question}</div>
 
-      <div className='flex gap-7 pb-10'>
+      <div className='flex gap-7 pb-10 justify-center'>
         {question.choices.map((choice, index) => {
           return (
             <div
