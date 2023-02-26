@@ -1,17 +1,27 @@
 import React, { useEffect } from 'react'
 import data from '../database/data'
 
+// useSelector to access state / store value
 import { useSelector } from 'react-redux'
 
-export default function Bars(props) {
+// Import custom hook
+
+import { useFetchQuestion } from '../hooks/fetchQuestion'
+
+export default function Bars() {
   const state = useSelector((state) => state)
+
+  const [{ isLoading, apiData, serverError }] = useFetchQuestion()
+
   useEffect(() => {
-    console.log(state)
+    console.log(isLoading)
+    console.log(apiData)
+    // console.log(serverError)
   })
 
   const question = data[1]
   function handleSelect() {
-    console.log('radio selected')
+    // console.log('radio selected')
   }
   return (
     <div>
