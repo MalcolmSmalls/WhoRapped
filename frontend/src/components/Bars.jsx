@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react'
 
 // useSelector to access state / store value
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 // Import custom hook
 
 import { useFetchQuestion } from '../hooks/fetchQuestion'
 
-export default function Bars() {
-  const [{ isLoading, apiData, serverError, trace }] = useFetchQuestion()
-  const [isSelect, setIsSelect] = useState(() => false)
+import { MoveNextQuestion } from '../hooks/fetchQuestion'
 
-  const questions = useSelector((state) => state.questions.queue[trace])
+export default function Bars() {
+  const [{ isLoading, apiData, serverError }] = useFetchQuestion()
+  const [isSelect, setIsSelect] = useState(() => false)
+  const dispatch = useDispatch()
+
+  const questions = useSelector(
+    (state) => state.questions.queue[state.questions.trace]
+  )
   const state = useSelector((state) => state)
 
   useEffect(() => {
@@ -21,6 +26,11 @@ export default function Bars() {
   function handleSelect() {
     // console.log('radio selected')
     setIsSelect((prevIsSelect) => true)
+  }
+
+  function handleNext() {
+    console.log('Next click')
+    dispatch(MoveNextQuestion())
   }
 
   if (isLoading) return <h3>isLoading</h3>
@@ -63,7 +73,10 @@ export default function Bars() {
 
       {isSelect ? (
         <div className='flex justify-center mb-5'>
-          <button className='border border-slate-200  rounded-lg p-2 px-5 hover:bg-slate-100/50 hover:border-slate-100/50'>
+          <button
+            className='border border-slate-200  rounded-lg p-2 px-5 hover:bg-slate-100/50 hover:border-slate-100/50'
+            onClick={handleNext}
+          >
             Submit
           </button>
         </div>

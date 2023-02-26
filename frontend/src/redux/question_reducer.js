@@ -22,16 +22,27 @@ export const questionReducer = createSlice({
         ...state,
         // action.payload gets the user value and updates the queue. Payload will be question this will update queue with question which is questions from data.
         queue: action.payload,
+        trace: Math.floor(Math.random() * action.payload.length),
       }
     },
-    setTrace: (state, action) => {
-      return { ...state, trace: action.payload }
+    moveNextAction: (state, action) => {
+      const answeredQuestion = state.queue[state.trace]
+      const newArr = state.queue.filter(
+        (item) => item !== state.queue[state.trace]
+      )
+
+      return {
+        ...state,
+        history: [...state.history, answeredQuestion],
+        queue: newArr,
+        trace: Math.floor(Math.random() * newArr.length),
+      }
     },
   },
 })
 
 // You get actions from questionReducer. This returns an object which you destructure into startExamAction. With that variable action you can dispatch to update the store
-export const { startExamAction } = questionReducer.actions
+export const { startExamAction, moveNextAction } = questionReducer.actions
 
 //
 export default questionReducer.reducer

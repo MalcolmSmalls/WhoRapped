@@ -15,7 +15,6 @@ export const useFetchQuestion = () => {
     isLoading: false,
     apiData: [],
     serverError: null,
-    trace: 0,
   })
 
   useEffect(() => {
@@ -28,7 +27,6 @@ export const useFetchQuestion = () => {
           const indx = Math.floor(Math.random() * question.length)
           setGetData((prevData) => ({ ...prevData, isLoading: false }))
           setGetData((prevData) => ({ ...prevData, apiData: question }))
-          setGetData((prevData) => ({ ...prevData, trace: indx }))
 
           // dispatch an action to update the store.
           dispatch(Action.startExamAction(question))
@@ -44,4 +42,14 @@ export const useFetchQuestion = () => {
     // specificy dispatch in dependency array so there's no infinite loop
   }, [dispatch])
   return [getData, setGetData]
+}
+
+// Move action dispatch function
+
+export const MoveNextQuestion = () => async (dispatch) => {
+  try {
+    dispatch(Action.moveNextAction())
+  } catch (error) {
+    console.log(error)
+  }
 }
