@@ -15,18 +15,20 @@ export const useFetchQuestion = () => {
     isLoading: false,
     apiData: [],
     serverError: null,
+    trace: 0,
   })
 
   useEffect(() => {
     setGetData((prevData) => ({ ...prevData, isLoading: true }))
     // async function to fetch backend data and call it ()
-
     ;(async () => {
       try {
         let question = await data
         if (question.length > 0) {
+          const indx = Math.floor(Math.random() * question.length)
           setGetData((prevData) => ({ ...prevData, isLoading: false }))
           setGetData((prevData) => ({ ...prevData, apiData: question }))
+          setGetData((prevData) => ({ ...prevData, trace: indx }))
 
           // dispatch an action to update the store.
           dispatch(Action.startExamAction(question))

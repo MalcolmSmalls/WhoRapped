@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import data from '../database/data'
+import React, { useEffect, useState } from 'react'
 
 // useSelector to access state / store value
 import { useSelector } from 'react-redux'
@@ -9,25 +8,19 @@ import { useSelector } from 'react-redux'
 import { useFetchQuestion } from '../hooks/fetchQuestion'
 
 export default function Bars() {
-  const questions = useSelector(
-    (state) =>
-      state.questions.queue[
-        Math.floor(Math.random() * state.questions.queue.length)
-      ]
-  )
+  const [{ isLoading, apiData, serverError, trace }] = useFetchQuestion()
+  const [isSelect, setIsSelect] = useState(() => false)
 
-  const [{ isLoading, apiData, serverError }] = useFetchQuestion()
+  const questions = useSelector((state) => state.questions.queue[trace])
+  const state = useSelector((state) => state)
 
   useEffect(() => {
-    console.log(questions)
-    // console.log(apiData)
-    // console.log(state)
-    // console.log(serverError)
+    console.log(state)
   })
 
-  const question = data[1]
   function handleSelect() {
     // console.log('radio selected')
+    setIsSelect((prevIsSelect) => true)
   }
 
   if (isLoading) return <h3>isLoading</h3>
@@ -66,27 +59,15 @@ export default function Bars() {
             </div>
           )
         })}
-
-        {/* <label>
-            <input
-              type='radio'
-              name='answer'
-              value={props.artist}
-              id={props.artist}
-              onChange={handleSelect}
-            ></input>
-            <div
-              className='container rounded-full h-16 w-16 bg-contain border-4 border-gray-300 bg-center'
-              style={{ backgroundImage: `url(${props.photo})` }}
-            ></div>
-          </label>
-          <label
-            htmlFor={props.artist}
-            className='uppercase font-Poppins h-10 text-center'
-          >
-            {props.artist}
-          </label> */}
       </div>
+
+      {isSelect ? (
+        <div className='flex justify-center mb-5'>
+          <button className='border border-slate-200  rounded-lg p-2 px-5 hover:bg-slate-100/50 hover:border-slate-100/50'>
+            Submit
+          </button>
+        </div>
+      ) : null}
     </div>
   )
 }
