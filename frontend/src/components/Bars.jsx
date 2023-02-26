@@ -9,13 +9,19 @@ import { useSelector } from 'react-redux'
 import { useFetchQuestion } from '../hooks/fetchQuestion'
 
 export default function Bars() {
-  const state = useSelector((state) => state)
+  const questions = useSelector(
+    (state) =>
+      state.questions.queue[
+        Math.floor(Math.random() * state.questions.queue.length)
+      ]
+  )
 
   const [{ isLoading, apiData, serverError }] = useFetchQuestion()
 
   useEffect(() => {
-    console.log(isLoading)
-    console.log(apiData)
+    console.log(questions)
+    // console.log(apiData)
+    // console.log(state)
     // console.log(serverError)
   })
 
@@ -23,12 +29,16 @@ export default function Bars() {
   function handleSelect() {
     // console.log('radio selected')
   }
+
+  if (isLoading) return <h3>isLoading</h3>
+  if (serverError) return <h3>{serverError || 'Unknown Error'}</h3>
   return (
     <div>
-      <div className='font-Poppins mb-3 select-none'>{question.question}</div>
-
+      {/* Access .question only if it has that property in that object. If there
+      are no more questions it won't display. */}
+      <div className='font-Poppins mb-3 select-none'>{questions?.question}</div>
       <div className='flex gap-7 pb-10 justify-center'>
-        {question.choices.map((choice, index) => {
+        {questions?.choices.map((choice, index) => {
           return (
             <div
               className='test container flex flex-col  w-14 justify-center items-center'

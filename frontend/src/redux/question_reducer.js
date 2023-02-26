@@ -10,7 +10,7 @@ export const questionReducer = createSlice({
     // Store questions from db in queue
     queue: [],
     answers: [],
-    trace: 0,
+    trace: [],
   },
   // Reducers allow you to specificy and dispatch an action to change value of the store. You can only change the value of store with an action.
   reducers: {
