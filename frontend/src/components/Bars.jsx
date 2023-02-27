@@ -9,28 +9,55 @@ import { useFetchQuestion } from '../hooks/fetchQuestion'
 
 import { MoveNextQuestion } from '../hooks/fetchQuestion'
 
+import { PushAnswer } from '../hooks/setResult'
+import { Navigate } from 'react-router-dom'
+
 export default function Bars() {
   const [{ isLoading, apiData, serverError }] = useFetchQuestion()
   const [isSelect, setIsSelect] = useState(() => false)
+
+  const [check, setCheck] = useState(undefined)
   const dispatch = useDispatch()
 
   const questions = useSelector(
     (state) => state.questions.queue[state.questions.trace]
   )
+  const { queue, trace, history } = useSelector((state) => state.questions)
+
   const state = useSelector((state) => state)
 
   useEffect(() => {
     console.log(state)
   })
 
-  function handleSelect() {
-    // console.log('radio selected')
+  function handleSelect(e) {
+    console.log('radio selected')
+    console.log(e.value)
+    setCheck((prevCheck) => e.value)
     setIsSelect((prevIsSelect) => true)
   }
 
+  // randomize trace value by using Move Next Action action
   function handleNext() {
+    if (queue.length > 0) {
+      dispatch(MoveNextQuestion())
+
+      dispatch(PushAnswer(check))
+    }
     console.log('Next click')
-    dispatch(MoveNextQuestion())
+  }
+
+  // when answered, needs to eventually check answers one at a time, if wrong display and move on
+
+  if (state.result.result.length > 0) {
+    console.log('yup')
+  }
+
+  //if out of questions, navigate to your charts page which shows your rank and your best ranked artists
+
+  if (queue.length <= 0 && history.length > queue.length) {
+    return <Navigate to={'/charts'} replace='true'></Navigate>
+    console.log('we outta here baby')
   }
 
   if (isLoading) return <h3>isLoading</h3>
@@ -53,7 +80,7 @@ export default function Bars() {
                   name='answer'
                   value={choice.artist}
                   id={choice.artist}
-                  onChange={handleSelect}
+                  onChange={(e) => handleSelect(e.target)}
                 ></input>
                 <div
                   className='container rounded-full h-16 w-16 bg-contain border-4 border-gray-300 bg-center bg-no-repeat'

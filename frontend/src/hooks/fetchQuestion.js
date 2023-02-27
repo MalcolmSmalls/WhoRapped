@@ -24,9 +24,11 @@ export const useFetchQuestion = () => {
       try {
         let question = await data
         if (question.length > 0) {
-          const indx = Math.floor(Math.random() * question.length)
           setGetData((prevData) => ({ ...prevData, isLoading: false }))
-          setGetData((prevData) => ({ ...prevData, apiData: question }))
+          setGetData((prevData) => ({
+            ...prevData,
+            apiData: question,
+          }))
 
           // dispatch an action to update the store.
           dispatch(Action.startExamAction(question))

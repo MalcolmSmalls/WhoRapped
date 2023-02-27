@@ -9,7 +9,6 @@ export const questionReducer = createSlice({
   initialState: {
     // Store questions from db in queue
     queue: [],
-    answers: [],
     history: [],
     trace: 0,
   },
@@ -23,9 +22,10 @@ export const questionReducer = createSlice({
         // action.payload gets the user value and updates the queue. Payload will be question this will update queue with question which is questions from data.
         queue: action.payload,
         trace: Math.floor(Math.random() * action.payload.length),
+        // answer: question[state.trace].answer,
       }
     },
-    moveNextAction: (state, action) => {
+    moveNextAction: (state) => {
       const answeredQuestion = state.queue[state.trace]
       const newArr = state.queue.filter(
         (item) => item !== state.queue[state.trace]
@@ -38,11 +38,21 @@ export const questionReducer = createSlice({
         trace: Math.floor(Math.random() * newArr.length),
       }
     },
+    // I want to eventually reset every 30 days or so.
+    resetAllAction: () => {
+      return {
+        queue: [],
+        answers: [],
+        history: [],
+        trace: 0,
+      }
+    },
   },
 })
 
 // You get actions from questionReducer. This returns an object which you destructure into startExamAction. With that variable action you can dispatch to update the store
-export const { startExamAction, moveNextAction } = questionReducer.actions
+export const { startExamAction, moveNextAction, resetAllAction } =
+  questionReducer.actions
 
 //
 export default questionReducer.reducer

@@ -24,6 +24,7 @@ export default [
         photo: '../src/assets/tupac.png',
       },
     ],
+    answer: 'Nas',
   },
   {
     id: 2,
@@ -51,5 +52,6 @@ export default [
         photo: '../src/assets/biggie.png',
       },
     ],
+    answer: 'Biggie',
   },
 ]
