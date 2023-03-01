@@ -17,6 +17,7 @@ export default function Bars() {
   const [isSelect, setIsSelect] = useState(() => false)
 
   const [check, setCheck] = useState(undefined)
+  let choice = useSelector((state) => state.result.choice)
   const dispatch = useDispatch()
 
   const questions = useSelector(
@@ -26,9 +27,9 @@ export default function Bars() {
 
   const state = useSelector((state) => state)
 
-  useEffect(() => {
-    console.log(state)
-  })
+  // useEffect(() => {
+  //   console.log(state)
+  // })
 
   function handleSelect(e) {
     console.log('radio selected')
@@ -38,19 +39,33 @@ export default function Bars() {
   }
 
   // randomize trace value by using Move Next Action action
-  function handleNext() {
+  function handleSubmit() {
     if (queue.length > 0) {
       dispatch(MoveNextQuestion())
+      dispatch(PushAnswer(check, questions.answer))
+    }
+    console.log('Submit click')
+  }
 
-      dispatch(PushAnswer(check))
+  function handleNext() {
+    if (queue.length > 0) {
+      // add this to next button
+      dispatch(MoveNextQuestion())
     }
     console.log('Next click')
   }
 
   // when answered, needs to eventually check answers one at a time, if wrong display and move on
 
-  if (state.result.result.length > 0) {
-    console.log('yup')
+  if (choice.length > 0) {
+    if (choice[0] === history[history.length - 1].answer) {
+      console.log('okkk u right')
+    } else {
+      console.log('wrong asf')
+      // console.log(choice[0])
+      // console.log(history[history.length - 1])
+    }
+    // console.log(state)
   }
 
   //if out of questions, navigate to your charts page which shows your rank and your best ranked artists
@@ -102,7 +117,7 @@ export default function Bars() {
         <div className='flex justify-center mb-5'>
           <button
             className='border border-slate-200  rounded-lg p-2 px-5 hover:bg-slate-100/50 hover:border-slate-100/50'
-            onClick={handleNext}
+            onClick={handleSubmit}
           >
             Submit
           </button>
