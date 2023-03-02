@@ -9,3 +9,11 @@ export const PushAnswer = (result, questionAns) => async (dispatch) => {
     console.log(error)
   }
 }
+
+export const ResetChoice = () => async (dispatch) => {
+  try {
+    dispatch(Action.resetChoiceAction())
+  } catch (error) {
+    console.log(error)
+  }
+}

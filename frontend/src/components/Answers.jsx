@@ -19,9 +19,9 @@ export default function Answers(props) {
     }
   }, [props.check])
   useEffect(() => {
-    console.log(state)
+    console.log(props.chosen.length)
 
-    if (queue.length > 0) {
+    if (queue.length > 0 && props.chosen.length) {
       if (
         state.result.choice[0] &&
         state.result.choice[0] !== state.result.choice[1]
@@ -43,6 +43,9 @@ export default function Answers(props) {
             'container rounded-full h-16 w-16 bg-contain outline outline-[5px]  outline-green-300 bg-center bg-no-repeat'
         }
       }
+    } else if (history.length > 0 && !props.chosen.length) {
+      element.className =
+        'container rounded-full h-16 w-16 bg-contain border-4 border-gray-300 bg-center bg-no-repeat'
     }
   }, [state])
 

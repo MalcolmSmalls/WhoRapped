@@ -43,6 +43,9 @@ export const resultReducer = createSlice({
     resetResultAction: () => {
       return { userId: null, result: {} }
     },
+    resetChoiceAction: (state) => {
+      return { ...state, choice: [] }
+    },
   },
 })
 
@@ -51,6 +54,7 @@ export const {
   pushResultAction,
   resetResultAction,
   compareAnswerAction,
+  resetChoiceAction,
 } = resultReducer.actions
 
 export default resultReducer.reducer

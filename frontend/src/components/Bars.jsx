@@ -10,7 +10,7 @@ import { useFetchQuestion } from '../hooks/fetchQuestion'
 
 import { MoveNextQuestion } from '../hooks/fetchQuestion'
 
-import { PushAnswer } from '../hooks/setResult'
+import { PushAnswer, ResetChoice } from '../hooks/setResult'
 import { Navigate } from 'react-router-dom'
 
 export default function Bars() {
@@ -19,7 +19,7 @@ export default function Bars() {
 
   const [check, setCheck] = useState(undefined)
   const [isRight, setIsRight] = useState('border-gray-300')
-  let choice = useSelector((state) => state.result.choice)
+  let chosen = useSelector((state) => state.result.choice)
   const dispatch = useDispatch()
 
   const questions = useSelector(
@@ -34,6 +34,7 @@ export default function Bars() {
     setIsSelect((prevIsSelect) => true)
   }
 
+  console.log(state)
   // randomize trace value by using Move Next Action action
   function handleSubmit() {
     if (queue.length > 0) {
@@ -51,6 +52,7 @@ export default function Bars() {
     if (queue.length > 0) {
       // add this to next button
       dispatch(MoveNextQuestion())
+      dispatch(ResetChoice())
     }
     console.log('Next click')
   }
@@ -82,6 +84,7 @@ export default function Bars() {
               handleSelect={handleSelect}
               isRight={isRight}
               check={check}
+              chosen={chosen}
             />
           )
         })}
@@ -91,9 +94,9 @@ export default function Bars() {
         <div className='flex justify-center mb-5'>
           <button
             className='border border-slate-200  rounded-lg p-2 px-5 hover:bg-slate-100/50 hover:border-slate-100/50'
-            onClick={choice.length ? handleNext : handleSubmit}
+            onClick={chosen.length ? handleNext : handleSubmit}
           >
-            {choice.length ? 'Next' : 'Submit'}
+            {chosen.length ? 'Next' : 'Submit'}
           </button>
         </div>
       ) : null}
