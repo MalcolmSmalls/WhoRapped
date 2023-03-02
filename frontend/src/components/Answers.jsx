@@ -5,9 +5,22 @@ export default function Answers(props) {
   const ref = useRef(null)
   const { queue, trace, history } = useSelector((state) => state.questions)
   const state = useSelector((state) => state)
+  const element = ref.current
+
+  useEffect(() => {
+    if (props.check) {
+      if (element.id === props.check) {
+        element.className =
+          'container rounded-full h-16 w-16 bg-contain outline outline-4 outline-gray-500 bg-center bg-no-repeat'
+      } else {
+        element.className =
+          'container rounded-full h-16 w-16 bg-contain border-4 border-gray-300 bg-center bg-no-repeat'
+      }
+    }
+  }, [props.check])
   useEffect(() => {
     console.log(state)
-    const element = ref.current
+
     if (queue.length > 0) {
       if (
         state.result.choice[0] &&
@@ -15,14 +28,24 @@ export default function Answers(props) {
       ) {
         if (element.id === state.result.choice[1]) {
           element.className =
-            'container rounded-full h-16 w-16 bg-contain border-4 border-green-300 bg-center bg-no-repeat'
+            'container rounded-full h-16 w-16 bg-contain outline outline-[5px]  outline-green-300 bg-center bg-no-repeat'
+        } else if (element.id === state.result.choice[0]) {
+          element.className =
+            'container rounded-full h-16 w-16 bg-contain border-4 border-red-300 bg-center bg-no-repeat outline-none '
         }
       }
-      //   if (element.id === 'Jay-Z') {
-      //     element.className = 'red'
-      //   }
+      if (
+        state.result.choice[0] &&
+        state.result.choice[0] === state.result.choice[1]
+      ) {
+        if (element.id === state.result.choice[0]) {
+          element.className =
+            'container rounded-full h-16 w-16 bg-contain outline outline-[5px]  outline-green-300 bg-center bg-no-repeat'
+        }
+      }
     }
   }, [state])
+
   return (
     <>
       <div
@@ -43,6 +66,7 @@ export default function Answers(props) {
             ref={ref}
             className={`container rounded-full h-16 w-16 bg-contain border-4 border-gray-300 bg-center bg-no-repeat`}
             style={{ backgroundImage: `url(${props.photo})` }}
+            // onClick={(e) => handleChange(e.target)}
           ></div>
         </label>
         <label

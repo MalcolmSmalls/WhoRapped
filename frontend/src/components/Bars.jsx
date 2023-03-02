@@ -81,6 +81,7 @@ export default function Bars() {
               photo={choice.photo}
               handleSelect={handleSelect}
               isRight={isRight}
+              check={check}
             />
           )
         })}
