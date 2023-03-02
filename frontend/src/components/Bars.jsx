@@ -91,9 +91,9 @@ export default function Bars() {
         <div className='flex justify-center mb-5'>
           <button
             className='border border-slate-200  rounded-lg p-2 px-5 hover:bg-slate-100/50 hover:border-slate-100/50'
-            onClick={handleSubmit}
+            onClick={choice.length ? handleNext : handleSubmit}
           >
-            Submit
+            {choice.length ? 'Next' : 'Submit'}
           </button>
         </div>
       ) : null}
