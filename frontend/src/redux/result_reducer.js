@@ -11,13 +11,13 @@ export const resultReducer = createSlice({
     setUserId: (state, action) => {
       state.userId = action.payload
     },
-    pushResultAction: (state, action) => {
-      state.choice.push(action.payload)
-    },
+    // pushResultAction: (state, action) => {
+    //   state.choice.push(action.payload)
+    // },
     compareAnswerAction: (state, action) => {
-      state.choice = []
       let val = action.payload[0]
       let ans = action.payload[1]
+      state.choice = [val, ans]
       if (val === ans) {
         if (!state.results[ans]) {
           state.results[ans] = [1, 1]

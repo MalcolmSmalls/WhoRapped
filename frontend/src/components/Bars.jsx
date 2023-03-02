@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Answers from './Answers'
 
 // useSelector to access state / store value
 import { useSelector, useDispatch } from 'react-redux'
@@ -17,6 +18,7 @@ export default function Bars() {
   const [isSelect, setIsSelect] = useState(() => false)
 
   const [check, setCheck] = useState(undefined)
+  const [isRight, setIsRight] = useState('border-gray-300')
   let choice = useSelector((state) => state.result.choice)
   const dispatch = useDispatch()
 
@@ -27,13 +29,7 @@ export default function Bars() {
 
   const state = useSelector((state) => state)
 
-  // useEffect(() => {
-  //   console.log(state)
-  // })
-
   function handleSelect(e) {
-    console.log('radio selected')
-    console.log(e.value)
     setCheck((prevCheck) => e.value)
     setIsSelect((prevIsSelect) => true)
   }
@@ -41,10 +37,14 @@ export default function Bars() {
   // randomize trace value by using Move Next Action action
   function handleSubmit() {
     if (queue.length > 0) {
-      dispatch(MoveNextQuestion())
+      // dispatch(MoveNextQuestion())
       dispatch(PushAnswer(check, questions.answer))
+      if (check === questions.answer) {
+        setIsRight('border-green-500')
+      } else {
+        setIsRight('border-red-500')
+      }
     }
-    console.log('Submit click')
   }
 
   function handleNext() {
@@ -56,17 +56,6 @@ export default function Bars() {
   }
 
   // when answered, needs to eventually check answers one at a time, if wrong display and move on
-
-  if (choice.length > 0) {
-    if (choice[0] === history[history.length - 1].answer) {
-      console.log('okkk u right')
-    } else {
-      console.log('wrong asf')
-      // console.log(choice[0])
-      // console.log(history[history.length - 1])
-    }
-    // console.log(state)
-  }
 
   //if out of questions, navigate to your charts page which shows your rank and your best ranked artists
 
@@ -85,30 +74,14 @@ export default function Bars() {
       <div className='flex gap-7 pb-10 justify-center'>
         {questions?.choices.map((choice, index) => {
           return (
-            <div
-              className='test container flex flex-col  w-14 justify-center items-center'
+            <Answers
               key={index}
-            >
-              <label>
-                <input
-                  type='radio'
-                  name='answer'
-                  value={choice.artist}
-                  id={choice.artist}
-                  onChange={(e) => handleSelect(e.target)}
-                ></input>
-                <div
-                  className='container rounded-full h-16 w-16 bg-contain border-4 border-gray-300 bg-center bg-no-repeat'
-                  style={{ backgroundImage: `url(${choice.photo})` }}
-                ></div>
-              </label>
-              <label
-                htmlFor={choice.artist}
-                className='uppercase font-Poppins h-10 text-center mt-1'
-              >
-                {choice.artist}
-              </label>
-            </div>
+              index={index}
+              artist={choice.artist}
+              photo={choice.photo}
+              handleSelect={handleSelect}
+              isRight={isRight}
+            />
           )
         })}
       </div>
