@@ -19,8 +19,6 @@ export default function Answers(props) {
     }
   }, [props.check])
   useEffect(() => {
-    console.log(props.chosen.length)
-
     if (queue.length > 0 && props.chosen.length) {
       if (
         state.result.choice[0] &&
