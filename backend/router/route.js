@@ -18,6 +18,9 @@ router
   .post(controller.insertQuestions)
   .delete(controller.deleteQuestions)
 
-router.route('/result').get()
-
+router
+  .route('/result')
+  .get(controller.getResult)
+  .post(controller.storeResult)
+  .delete(controller.deleteResult)
 export default router
