@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import data from '../database/data'
+import { getServerData } from '../helper/helper'
 
 // Get all actions into Action variable from question reducer to redux actions
 
@@ -22,16 +22,20 @@ export const useFetchQuestion = () => {
     // async function to fetch backend data and call it ()
     ;(async () => {
       try {
-        let question = await data
-        if (question.length > 0) {
+        const [{ questions }] = await getServerData(
+          `http://localhost:5000/api/questions`,
+          (data) => data
+        )
+        console.log(questions)
+        if (questions.length > 0) {
           setGetData((prevData) => ({ ...prevData, isLoading: false }))
           setGetData((prevData) => ({
             ...prevData,
-            apiData: question,
+            apiData: questions,
           }))
 
           // dispatch an action to update the store.
-          dispatch(Action.startExamAction(question))
+          dispatch(Action.startExamAction(questions))
         } else {
           throw new Error('No Question Available')
         }
