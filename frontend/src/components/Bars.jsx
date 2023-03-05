@@ -12,6 +12,7 @@ import { MoveNextQuestion } from '../hooks/fetchQuestion'
 
 import { PushAnswer, ResetChoice } from '../hooks/setResult'
 import { Navigate } from 'react-router-dom'
+import { getServerData } from '../helper/helper'
 
 export default function Bars() {
   const [{ isLoading, apiData, serverError }] = useFetchQuestion()
