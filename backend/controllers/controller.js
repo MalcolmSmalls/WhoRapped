@@ -12,7 +12,7 @@ export async function getQuestions(req, res) {
   }
 }
 
-// insert questions
+// insert all questions
 
 export async function insertQuestions(req, res) {
   try {
@@ -26,29 +26,48 @@ export async function insertQuestions(req, res) {
   }
 }
 
-// update questions
-export async function updateQuestions(req, res) {
-  res.json('question api update request')
-}
-
-// delete questions
+// delete all questions
 
 export async function deleteQuestions(req, res) {
-  res.json('question api delete request')
+  try {
+    await Questions.deleteMany()
+    res.json({ msg: 'Questions deleted successfully' })
+  } catch (error) {
+    res.json({ error })
+  }
 }
 
 // get results
 
 export async function getResult(req, res) {
-  res.json('result api get request')
+  try {
+    const r = await Results.find()
+    res.json(r)
+  } catch (error) {
+    res.json({ error })
+  }
 }
 
 // post results
 
 export async function storeResult(req, res) {
-  res.json('result api post request')
+  try {
+    const { username, result, points } = req.body
+    if (!username && !result) throw new Error('Data not provided')
+
+    Results.create({ username, result, points }).then(function (error, data) {
+      res.json({ msg: 'Result Saved Successfully' })
+    })
+  } catch (error) {
+    res.json({ error })
+  }
 }
 
 export async function deleteResult(req, res) {
-  res.json('result api delete request')
+  try {
+    await Results.deleteMany()
+    res.json({ msg: 'Results successfully deleted' })
+  } catch (error) {
+    res.json({ error })
+  }
 }
