@@ -1,5 +1,6 @@
 import * as Action from '../redux/result_reducer'
 import { useDispatch, useSelector } from 'react-redux'
+import { postServerData } from '../helper/helper'
 
 export const PushAnswer = (result, questionAns) => async (dispatch) => {
   try {
@@ -16,4 +17,22 @@ export const ResetChoice = () => async (dispatch) => {
   } catch (error) {
     console.log(error)
   }
+}
+
+//insert user data, use this hook in result.js. i want to actually use this everytime a question is answered.. and to localstorage if user isn't logged in
+
+export const usePublishResult = (resultData) => {
+  const { result, username } = resultData(async () => {
+    try {
+      if (result !== [] && !username)
+        throw new Error("Couldn't get credentials")
+      await postServerData(
+        'http://localhost:5000/api/result',
+        resultData,
+        (data) => data
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  })()
 }
