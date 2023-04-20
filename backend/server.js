@@ -16,7 +16,7 @@ config()
 
 // application port
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 5000
 
 // routes
 app.use('/api', router) // gets all routes from router. apis
@@ -35,7 +35,9 @@ connect()
   .then(() => {
     try {
       app.listen(port, () => {
-        console.log(`Server connected to http://localhost:${port}`)
+        console.log(
+          `Server connected to http://localhost:${port} in ${process.env.PORT} mode`
+        )
       })
     } catch (error) {
       console.log('Cannot connect to the server')

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Bars, Rapper, Fields, Navbar } from './'
+import { Questions, Rapper, Fields, Navbar } from './'
 import { nas, jayz, kanye } from '../assets'
 
 export default function Main() {
@@ -12,7 +12,7 @@ export default function Main() {
           Who Rapped
         </h1>
         <div className='flex flex-col items-center mx-auto w-1/2 gap-5'>
-          <Bars artist='Jay-Z' photo={jayz} />
+          <Questions />
 
           {/* <Rapper artist='Jay-Z' photo={jayz} />
             <Rapper artist='Nas' photo={nas} />

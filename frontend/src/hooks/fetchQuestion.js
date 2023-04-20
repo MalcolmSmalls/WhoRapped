@@ -23,7 +23,7 @@ export const useFetchQuestion = () => {
     ;(async () => {
       try {
         const [{ questions }] = await getServerData(
-          `http://localhost:5000/api/questions`,
+          `/api/questions`,
           (data) => data
         )
         console.log(questions)

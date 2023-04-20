@@ -1,0 +1,25 @@
+log in and sign up, authentication and encryption
+settings such as easy medium hard mainstream ect
+
+a timer the faster the more points 
+
+send results every question 
+a charts section that shows the top users whove answered the most questions right
+
+a user charts section that shows logged in users results and their top most answered artist
+
+useEffect(() => {
+    getServerData('http://localhost:5000/api/result', (res) => {
+        setData(res)
+    }) 
+})
+
+
+
+ change localhost urls on deployment
+
+ better loading screen
+
+
+
+ https://www.youtube.com/watch?v=BNN4o4gnSF4

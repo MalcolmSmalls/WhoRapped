@@ -14,7 +14,7 @@ import { PushAnswer, ResetChoice } from '../hooks/setResult'
 import { Navigate } from 'react-router-dom'
 import { getServerData } from '../helper/helper'
 
-export default function Bars() {
+export default function Questions() {
   const [{ isLoading, apiData, serverError }] = useFetchQuestion()
   const [isSelect, setIsSelect] = useState(() => false)
 
